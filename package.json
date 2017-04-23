@@ -1,0 +1,43 @@
+{
+    "name": "@castery/caster",
+    "version": "0.0.1",
+    "description": "🤖💬 Universal platform for creating multi bots!",
+    "main": "index.js",
+	"engines": {
+		"node": ">=7.0.0"
+	},
+    "directories": {
+        "test": "test"
+    },
+    "scripts": {
+		"test": "mocha test",
+		"build": "npm run-script babel",
+		"compile": "npm run-script babel",
+		"babel": "babel src/ --out-dir lib/",
+		"watch": "npm run-script babel -- --watch"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/castery/caster.git"
+    },
+    "keywords": [
+        "universal",
+        "platform",
+        "multi",
+        "bot"
+    ],
+    "author": "https://github.com/negezor",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/castery/caster/issues"
+    },
+    "homepage": "https://github.com/castery/caster#readme",
+    "devDependencies": {
+        "babel-cli": "^6.24.1",
+        "babel-core": "^6.24.1",
+        "babel-preset-env": "^1.4.0",
+        "chai": "^3.5.0",
+        "mocha": "^3.2.0"
+    },
+    "dependencies": {}
+}
