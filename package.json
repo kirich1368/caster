@@ -12,9 +12,9 @@
     "scripts": {
 		"test": "mocha test",
 		"build": "npm run-script babel",
-		"compile": "npm run-script babel",
 		"babel": "babel src/ --out-dir lib/",
-		"watch": "npm run-script babel -- --watch"
+		"watch": "npm run-script babel -- --watch",
+		"prepublish": "npm run-script babel && npm test"
     },
     "repository": {
         "type": "git",
