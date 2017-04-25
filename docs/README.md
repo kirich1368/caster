@@ -4,7 +4,10 @@
 	* [Introduction](introduction.md)
 
 * API Reference
-	* Coming Soon
+	* [Caster](api-reference/caster.md)
+	* [Platform](api-reference/platform.md)
+	* [Middleware](api-reference/middleware.md)
+	* ...Coming Soon
 
 ## Contributing
 If you would like to contribute enhancements or fixes, please do the following:
