@@ -2,7 +2,7 @@
 
 import Promise from 'bluebird';
 
-import Joi, { validate as JoiValidate } from 'Joi';
+import Joi, { validate as JoiValidate } from 'joi';
 
 import { Middleware, Caster } from '../index';
 
