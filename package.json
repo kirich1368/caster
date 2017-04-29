@@ -10,7 +10,7 @@
         "test": "test"
     },
     "scripts": {
-        "test": "mocha test",
+        "test": "mocha lib/test",
         "build": "npm run-script babel",
         "babel": "babel src/ --out-dir lib/",
         "watch": "npm run-script babel -- --watch",
@@ -23,6 +23,7 @@
     "keywords": [
         "universal",
         "platform",
+        "caster",
         "multi",
         "bot"
     ],

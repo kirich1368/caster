@@ -16,7 +16,7 @@ new Middleware;
 Registers a middleware
 
 ```js
-middleware.use(middleware);
+middleware.use(middleware); // => void
 ```
 
 | Param       | Type     | Description         |
@@ -24,11 +24,11 @@ middleware.use(middleware);
 | middleware  | function | Middleware function |
 
 ```js
-middleware.use(middlewares);
+middleware.use(middlewares); // => void
 ```
 
 ```js
-middleware.use(...middlewares);
+middleware.use(...middlewares); // => void
 ```
 
 | Param       | Type       | Description          |
@@ -39,7 +39,7 @@ middleware.use(...middlewares);
 Run chain a middleware.
 
 ```js
-middleware.run(context); // => Promise
+middleware.run(context); // => Promise<boolean>
 ```
 
 | Param   | Type  | Description |
@@ -47,7 +47,7 @@ middleware.run(context); // => Promise
 | context | mixed | Context     |
 
 ```js
-middleware.run(...args); // => Promise
+middleware.run(...args); // => Promise<boolean>
 ```
 
 | Param | Type  | Description |

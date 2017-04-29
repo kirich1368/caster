@@ -6,15 +6,15 @@
 
 🤖 Caster is a universal powerful [Node.js](https://nodejs.org/) module with open source code for creating multi platform bots!
 
-| 📖 [Documentation](docs/) | 📦 [Modules](https://www.npmjs.com/search?q=caster-) | 💡 [Examples](https://github.com/castery/examples) |
-|--------------------------|------------------------------------------------------|----------------------------------------------------|
+| 📖 [Documentation](docs/) | 📦 [Modules](https://www.npmjs.com/search?q=caster-) | 🤖 [Examples](https://github.com/castery/caster-examples) |
+|--------------------------|------------------------------------------------------|-------------------------------------------------------------|
 
 ## Features
 - Object-oriented
 - Using modern development tools
 
 ## Installation
-Caster requires **[Node.js](https://nodejs.org/) (~7.X.X)**
+**[Node.js](https://nodejs.org/) 7.0.0 or newer is required**  
 ### NPM
 ```shell
 npm install @castery/caster --save
@@ -22,4 +22,21 @@ npm install @castery/caster --save
 ### Yarn
 ```shell
 yarn add @castery/caster
+```
+
+## Usage
+```js
+import { Caster } from '@castery/caster';
+
+const caster = Caster;
+
+/* Add platforms integrations */
+
+caster.start()
+.then(() => {
+	console.log('Caster started');
+})
+.catch(() => {
+	console.error('Caster started fail');
+});
 ```

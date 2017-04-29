@@ -14,7 +14,7 @@ new Caster([options]);
 
 | Param   | Type   | Description                 |
 |---------|--------|-----------------------------|
-| options | object | [Options bot](#Options-bot) |
+| options | object | [Options bot](#options-bot) |
 
 #### Options bot
 
@@ -23,7 +23,6 @@ new Caster([options]);
 | name   | string | Name bot (maybe) |
 
 ### setOptions
-
 Sets options
 
 ```js
@@ -32,7 +31,7 @@ caster.setOptions(options); // => Caster
 
 | Param   | Type   | Description                 |
 |---------|--------|-----------------------------|
-| options | object | [Options bot](#Options-bot) |
+| options | object | [Options bot](#options-bot) |
 
 ### isStarted
 Returns the launch status of the bot
@@ -45,12 +44,19 @@ caster.isStarted(); // => boolean
 Running the bot
 
 ```js
-caster.start(); // => Promise
+caster.start(); // => Promise<void>
 ```
 
 ### stop
 Stops the bot
 
 ```js
-caster.stop(); // => Promise
+caster.stop(); // => Promise<void>
+```
+
+### use
+Adds the functionality of caster
+
+```js
+caster.use(<Platform>);
 ```

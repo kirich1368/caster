@@ -1,11 +1,10 @@
 'use strict';
 
-const Promise = require('bluebird');
-const chai = require('chai');
+import Promise from 'bluebird';
 
-const { Middleware } = require('../index');
+import { assert, expect } from 'chai';
 
-const { assert, expect } = chai;
+import { Middleware } from '../index';
 
 describe('Caster Middleware', () => {
 	it('should work', async () => {

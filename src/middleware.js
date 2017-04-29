@@ -12,7 +12,7 @@ export class Middleware {
 	 * Constructor
 	 */
 	constructor () {
-		this._middlewares = [];
+		this._stack = [];
 	}
 
 	/**
@@ -32,7 +32,7 @@ export class Middleware {
 				throw new TypeError('Middleware must be composed of functions!');
 			}
 
-			this._middlewares.push(middleware);
+			this._stack.push(middleware);
 		}
 	}
 
@@ -41,10 +41,10 @@ export class Middleware {
 	 *
 	 * @param {Array} args
 	 *
-	 * @return {Promise}
+	 * @return {Promise<boolean>}
 	 */
 	run (...args) {
-		const middlewares = this._middlewares;
+		const middlewares = this._stack;
 
 		let index = -1;
 

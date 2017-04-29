@@ -1,7 +1,6 @@
 'use strict';
 
-const chai = require('chai');
-const { assert, expect } = chai;
+import { assert, expect } from 'chai';
 
 const { NODE_ENV = 'development' } = process.env;
 
