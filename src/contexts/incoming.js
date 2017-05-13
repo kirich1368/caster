@@ -1,6 +1,17 @@
 'use strict';
 
-import { Context } from '../context';
+import Joi from 'joi';
+
+import { Context, contextSchema } from '../context';
+
+export const incomingSchema = contextSchema.keys({
+	platform: Joi.object().keys({
+		id: Joi.any().required(),
+		name: Joi.string().required()
+	}),
+	type: Joi.string().required(),
+	raw: Joi.object()
+});
 
 /**
  * Base all incoming context
@@ -14,8 +25,40 @@ export class IncomingContext extends Context {
 	constructor (caster) {
 		super(caster);
 
-		this.platform = 'unknown';
 		this.type = 'incoming';
-		this.raw = null;
+	}
+
+	/**
+	 * @inheritdoc
+	 */
+	getSchema () {
+		return incomingSchema;
+	}
+
+	/**
+	 * Returns the type
+	 *
+	 * @return {string}
+	 */
+	getType () {
+		return this.type;
+	}
+
+	/**
+	 * Returns the platform name
+	 *
+	 * @return {string}
+	 */
+	getPlatformName () {
+		return this.platform.name;
+	}
+
+	/**
+	 * Returns the raw
+	 *
+	 * @return {?Object}
+	 */
+	getRaw () {
+		return this.raw;
 	}
 }

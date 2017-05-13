@@ -4,7 +4,7 @@ import Joi, { validate as joiValidate } from 'joi';
 
 import Events from 'events';
 
-const defaultOptionsSchema = Joi.object({
+const defaultOptionsSchema = Joi.object().keys({
 	adapter: Joi.object()
 });
 

@@ -8,6 +8,8 @@ export { Platform } from './platform';
 
 export { Middleware } from './middleware';
 
+export { Collection } from './util/collection';
+
 export { MessageContext } from './contexts/message';
 
 export { IncomingContext } from './contexts/incoming';

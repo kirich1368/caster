@@ -7,6 +7,7 @@ import { validate as joiValidate } from 'joi';
 
 import { Platform } from './platform';
 import { IncomingMiddleware } from './middlewares/incoming';
+import { OutcomingMiddleware } from './middlewares/outcoming';
 
 import {
 	defaultOptions,
@@ -33,6 +34,7 @@ export class Caster {
 		this._platforms = new Set;
 
 		this.incoming = new IncomingMiddleware;
+		this.outcoming = new OutcomingMiddleware;
 
 		this.setOptions(options);
 	}

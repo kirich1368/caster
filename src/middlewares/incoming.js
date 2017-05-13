@@ -4,27 +4,15 @@ import Promise from 'bluebird';
 
 import Joi, { validate as JoiValidate } from 'joi';
 
-import { Middleware, Caster } from '../index';
+import { Middleware } from '../middleware';
 
-import { IncomingContext } from '../contexts/incoming';
-
-const shemaUseMiddleware = Joi.object().keys({
+export const schemaUseIncoming = Joi.object().keys({
 	name: Joi.string().required(),
 	order: Joi.number().default(0),
 	handler: Joi.func().required(),
 	enable: Joi.boolean().default(true),
 	description: Joi.string().default('No description'),
 });
-
-const shemaDispatchMiddleware = Joi.object().keys({
-	//caster: Joi.object().type(Caster),
-	text: Joi.string().allow(null),
-	type: Joi.string().allow(null),
-	platform: Joi.string(),
-	raw: Joi.any()
-})
-.type(IncomingContext)
-.unknown();
 
 export class IncomingMiddleware {
 	/**
@@ -37,6 +25,15 @@ export class IncomingMiddleware {
 	}
 
 	/**
+	 * Returns the schema use
+	 *
+	 * @return {Joi}
+	 */
+	getSchemaUse () {
+		return schemaUseIncoming;
+	}
+
+	/**
 	 * Register new incoming middleware
 	 *
 	 * @param {Object} middlewareRaw
@@ -44,7 +41,7 @@ export class IncomingMiddleware {
 	use (middlewareRaw) {
 		const { error, value: middleware } = JoiValidate(
 			middlewareRaw,
-			shemaUseMiddleware
+			this.getSchemaUse()
 		);
 
 		if (error !== null) {
@@ -77,7 +74,7 @@ export class IncomingMiddleware {
 	dispatch (contextRaw) {
 		const { error, value: context } = JoiValidate(
 			contextRaw,
-			shemaDispatchMiddleware
+			contextRaw.getSchema()
 		);
 
 		if (error !== null) {
