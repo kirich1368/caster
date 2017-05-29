@@ -4,9 +4,10 @@ import Joi from 'joi';
 
 import { IncomingMiddleware, schemaUseIncoming } from './incoming';
 
-export const schemaUseOutcoming = schemaUseIncoming.keys({
-	//
-});
+// export const schemaUseOutcoming = schemaUseIncoming.keys({
+// 	//
+// });
+export const schemaUseOutcoming = schemaUseIncoming;
 
 /**
  * Outcoming events

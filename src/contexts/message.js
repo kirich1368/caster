@@ -7,6 +7,10 @@ import Joi from 'joi';
 import { IncomingContext, incomingSchema } from './incoming';
 
 export const messageSchema = incomingSchema.keys({
+	from: Joi.object().keys({
+		id: Joi.any().required(),
+		type: Joi.string().required()
+	}),
 	text: Joi.string().required().allow(null)
 });
 
@@ -24,6 +28,15 @@ export class MessageContext extends IncomingContext {
 
 		this.type = 'message';
 		this.text = null;
+	}
+
+	/**
+	 * Returns the text
+	 *
+	 * @return {string}
+	 */
+	getText () {
+		return this.text;
 	}
 
 	/**

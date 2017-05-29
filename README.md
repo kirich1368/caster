@@ -28,7 +28,7 @@ yarn add @castery/caster
 ```js
 import { Caster } from '@castery/caster';
 
-const caster = Caster;
+const caster = new Caster;
 
 /* Add platforms integrations */
 

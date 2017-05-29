@@ -68,6 +68,15 @@ export class Platform extends Events {
 	}
 
 	/**
+	 * Returns platform adapter
+	 *
+	 * @return {Object}
+	 */
+	getAdapter () {
+		return null;
+	}
+
+	/**
 	 * Returns the launch status of the platform
 	 *
 	 * @return {boolean}
@@ -98,8 +107,10 @@ export class Platform extends Events {
 	 * Subscribe caster for platform events
 	 *
 	 * @param {Caster} caster
+	 *
+	 * @return {Promise<void>}
 	 */
-	subscribe (caster) {
+	async subscribe (caster) {
 		return;
 	}
 
@@ -107,8 +118,10 @@ export class Platform extends Events {
 	 * Unsubscribe caster for platform events
 	 *
 	 * @param {Caster} caster
+	 *
+	 * @return {Promise<void>}
 	 */
-	unsubscribe (caster) {
+	async unsubscribe (caster) {
 		return;
 	}
 }

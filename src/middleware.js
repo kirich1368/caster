@@ -47,6 +47,10 @@ export class Middleware {
 		const middlewares = this._stack;
 
 		let index = -1;
+		const status = {
+			isFinished: true,
+			contexts: args
+		};
 
 		const next = (i) => {
 			if (i <= index) {
@@ -56,14 +60,20 @@ export class Middleware {
 			index = i;
 
 			if (!(i in middlewares)) {
-				return Promise.resolve(true);
+				status.isFinished = true;
+
+				return Promise.resolve(status);
 			}
 
 			try {
 				return Promise.resolve(
 					middlewares[i](...args, () =>  next(i + 1))
 				)
-				.then(() => middlewares.length <= index);
+				.then(() => {
+					status.isFinished = middlewares.length <= index;
+
+					return status;
+				});
 			} catch (error) {
 				return Promise.reject(error);
 			}

@@ -10,7 +10,7 @@ export const incomingSchema = contextSchema.keys({
 		name: Joi.string().required()
 	}),
 	type: Joi.string().required(),
-	raw: Joi.object()
+	raw: Joi.object().allow(null)
 });
 
 /**
@@ -42,6 +42,15 @@ export class IncomingContext extends Context {
 	 */
 	getType () {
 		return this.type;
+	}
+
+	/**
+	 * Returns the platform identifier
+	 *
+	 * @return {mixed}
+	 */
+	getPlatformId () {
+		return this.platform.id;
 	}
 
 	/**

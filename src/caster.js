@@ -83,14 +83,10 @@ export class Caster {
 		this._isStarted = true;
 
 		for (const platform of this._platforms) {
-			if (platform.isStarted()) {
-				continue;
-			}
-
 			try {
-				await platform.start();
+				await platform.subscribe(this);
 			} catch (error) {
-				/* TODO: Add actions on startup error */
+				/* TODO: Add actions on stop error */
 				console.log(error);
 			}
 		}
@@ -111,12 +107,8 @@ export class Caster {
 		this._isStarted = false;
 
 		for (const platform of this._platforms) {
-			if (!platform.isStarted()) {
-				continue;
-			}
-
 			try {
-				await platform.stop();
+				await platform.unsubscribe(this);
 			} catch (error) {
 				/* TODO: Add actions on stop error */
 				console.log(error);
@@ -127,13 +119,31 @@ export class Caster {
 	}
 
 	/**
+	 * Adds a platform
+	 *
+	 * @param {Platform} platform
+	 */
+	addPlatform (platform) {
+		this._platforms.add(platform);
+	}
+
+	/**
+	 * Removes a platform
+	 *
+	 * @param {Platform} platform
+	 */
+	removePlatform () {
+		this._platforms.delete(platform);
+	}
+
+	/**
 	 * Extends the functionality of caster
 	 *
 	 * @param {Object} proto
 	 */
 	use (proto) {
 		if (proto instanceof Platform) {
-			return void this._addPlatform(proto);
+			return void this.addPlatform(proto);
 		}
 
 		if ('name' in proto && 'handler' in proto) {
@@ -152,7 +162,7 @@ export class Caster {
 	 *
 	 * @return {Promise<boolean>}
 	 */
-	dispatchIncomingMiddleware (context) {
+	dispatchIncoming (context) {
 		return this.incoming.dispatch(context)
 		.catch((error) => {
 			console.error(error);
@@ -162,17 +172,18 @@ export class Caster {
 	}
 
 	/**
-	 * Adds a platform
+	 * Dispatching outcoming middleware
 	 *
-	 * @param {Platform} platform
+	 * @param  {OutcomingContext} context
+	 *
+	 * @return {Promise<boolean>}
 	 */
-	_addPlatform (platform) {
-		if (this._platforms.has(platform)) {
-			return;
-		}
+	dispatchOutcoming (context) {
+		return this.outcoming.dispatch(context)
+		.catch((error) => {
+			console.error(error);
 
-		this._platforms.add(platform);
-
-		platform.subscribe(this);
+			throw error;
+		});
 	}
 }
