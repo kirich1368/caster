@@ -3,6 +3,16 @@
 import Joi from 'joi';
 
 /**
+ * Priority of middleware
+ *
+ * @type {Object}
+ */
+export const MIDDLEWARE_PRIORITY = {
+	DEFAULT: 0,
+	PLATFORM: 200
+};
+
+/**
  * Default options bot
  *
  * @type {Object}

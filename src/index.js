@@ -13,3 +13,5 @@ export { Collection } from './util/collection';
 export { MessageContext } from './contexts/message';
 
 export { IncomingContext } from './contexts/incoming';
+
+export { MIDDLEWARE_PRIORITY } from './util/constants';

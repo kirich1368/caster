@@ -2,6 +2,8 @@
 
 import Promise from 'bluebird';
 
+import { inspect } from 'util';
+
 /**
  * Base all middleware
  *
@@ -11,8 +13,10 @@ export class Middleware {
 	/**
 	 * Constructor
 	 */
-	constructor () {
+	constructor (...middlewares) {
 		this._stack = [];
+
+		this.use(middlewares);
 	}
 
 	/**
@@ -80,5 +84,14 @@ export class Middleware {
 		};
 
 		return next(0);
+	}
+
+	/**
+	 * Custom output to the console
+	 *
+	 * @return {string}
+	 */
+	inspect (depth, options) {
+		return `${this.constructor.name} { ${inspect(this._stack, options)} }`;
 	}
 }

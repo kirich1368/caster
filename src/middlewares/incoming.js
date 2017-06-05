@@ -1,17 +1,21 @@
 'use strict';
 
 import Promise from 'bluebird';
-
 import Joi, { validate as JoiValidate } from 'joi';
 
+import { inspect } from 'util';
+
+import { prioritySort } from './helpers';
 import { Middleware } from '../middleware';
+import { MIDDLEWARE_PRIORITY as PRIORITY } from '../util/constants';
 
 export const schemaUseIncoming = Joi.object().keys({
 	name: Joi.string().required(),
-	order: Joi.number().default(0),
 	handler: Joi.func().required(),
 	enable: Joi.boolean().default(true),
-	description: Joi.string().default('No description'),
+	type: Joi.string().default('handler'),
+	priority: Joi.number().default(PRIORITY.DEFAULT),
+	description: Joi.string().default('No description')
 });
 
 export class IncomingMiddleware {
@@ -85,7 +89,59 @@ export class IncomingMiddleware {
 	}
 
 	/**
+	 * For each middleware
+	 *
+	 * @param  {Function} fn
+	 *
+	 * @return {this}
+	 */
+	forEach (fn) {
+		this._stack.forEach(fn);
+
+		return this.reload();
+	}
+
+	/**
+	 * Filter middlewares
+	 *
+	 * @param {Function} fn
+	 *
+	 * @return {this}
+	 */
+	filter (fn) {
+		this._stack = this._stack.filter(fn);
+
+		return this.reload();
+	}
+
+	/**
+	 * Produces sorting of middleware
+	 *
+	 * @param {Function} fn
+	 *
+	 * @return {this}
+	 */
+	sort (fn = prioritySort) {
+		this._stack.sort(fn);
+
+		return this.reload();
+	}
+
+	/**
+	 * Searches for a single item
+	 *
+	 * @param {Function} fn
+	 *
+	 * @return {?Object}
+	 */
+	find (fn) {
+		return this._stack.find(fn) || null;
+	}
+
+	/**
 	 * Reboot middleware
+	 *
+	 * @return {this}
 	 */
 	reload () {
 		const middlewares = this._stack
@@ -96,26 +152,17 @@ export class IncomingMiddleware {
 			middleware.handler
 		));
 
-		this._middleware = new Middleware;
-		this._middleware.use(middlewares);
+		this._middleware = new Middleware(middlewares);
+
+		return this;
 	}
 
 	/**
-	 * Produces sorting of middleware
+	 * Custom output to the console
+	 *
+	 * @return {string}
 	 */
-	sort () {
-		this._stack.sort((a, b) => {
-			if (a.order > b.order) {
-				return 1;
-			}
-
-			if (a.order < b.order) {
-				return -1;
-			}
-
-			return 0;
-		});
-
-		this.reload();
+	inspect (depth, options) {
+		return `${this.constructor.name} { ${inspect(this._stack, options)} }`;
 	}
 }
